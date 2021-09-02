@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def solution1():
-    long_meory = [0] * 5
+    long_memory = [0] * 5
 
     grid = np.empty(shape=(6, 6), dtype=np.dtype(str))
     grid.fill(0)
@@ -43,11 +43,11 @@ def solution1():
 
     short_memory[1][3] = cell_memory3
 
-    long_meory[1] = short_memory
-    long_meory[2] = short_memory
-    long_meory[3] = short_memory
+    long_memory[1] = short_memory
+    long_memory[2] = short_memory
+    long_memory[3] = short_memory
 
-    df = pd.DataFrame(long_meory)
+    df = pd.DataFrame(long_memory)
 
     p = PrettyTable()
     for row in short_memory:
