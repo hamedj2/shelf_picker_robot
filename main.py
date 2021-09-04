@@ -3,7 +3,7 @@ from random import randrange
 from prettytable import PrettyTable
 import pandas as pd
 
-from robotconfig.Sensors import DetectShelveSensor
+from robotconfigs.Sensors import DetectShelveSensor
 
 
 def solution1():
