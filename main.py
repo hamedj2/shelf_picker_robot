@@ -3,6 +3,8 @@ from random import randrange
 from prettytable import PrettyTable
 import pandas as pd
 
+from robotconfig.Sensors import DetectShelveSensor
+
 
 def solution1():
     long_memory = [0] * 5
@@ -82,6 +84,9 @@ def solution2():
 
 
 if __name__ == '__main__':
-    solution1()
-
+    # solution1()
     # solution2()
+    sendor = DetectShelveSensor()
+    sendor.sendor_accuracy = 80
+    sendor.sense()
+    print(sendor.sendor_data)
