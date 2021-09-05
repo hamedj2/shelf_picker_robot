@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from robotconfigs.Sensors import DetectShelveSensor
 
 
 class RandomWalk:
@@ -12,7 +13,7 @@ class RandomWalk:
     def walk_simulate(self):
         plt.scatter(self.__x__, self.__y__, c='black', s=50)
         plt.title('Random walk of Alice')
-        pos = np.array([1, 6])  # Start Walk
+        pos = np.array([1, 1])  # Start Walk
 
         # Arrays/Lists to store some positions to draw them later.
         posX = []
@@ -20,36 +21,31 @@ class RandomWalk:
         posX.append(pos[0])
         posY.append(pos[1])
         # Simulate the random walk upto nsteps steps
-        nsteps = 100
+        nsteps = 1000000
+        sendor = DetectShelveSensor()
+        sendor.sendor_accuracy = 80
+
         for i in range(nsteps):
             plt.scatter(self.__x__, self.__y__, c='black', s=50)
-
             randno = np.random.random_integers(1, 4)
             if randno == 1:  # Right
                 if pos[0] < 6:
                     pos = pos + [1, 0]
-                elif pos[0] > 1:
-                    pos = pos + [0, 1]
             elif randno == 2:  # Up
                 if pos[1] < 6:
                     pos = pos + [0, 1]
-                elif pos[1] >1:
-                    pos = pos + [1, 0]
             if randno == 3:  # Left
                 if pos[0] > 1:
                     pos = pos - [1, 0]
-                elif pos[1] > 1:
-                    pos = pos - [0, 1]
             elif randno == 4:  # Down
                 if pos[1] > 1:
                     pos = pos - [0, 1]
-                elif pos[0] > 1:
-                    pos = pos - [1, 0]
             posX.append(pos[0])
             posY.append(pos[1])
             # Draw the paths
             plt.plot(posX, posY, c='green', linewidth=3)
             # Pause for animation
             plt.pause(0.5)
+            print(i)
 
         plt.show()
