@@ -26,6 +26,7 @@ class RandomWalk:
         sendor.sendor_accuracy = 80
 
         for i in range(nsteps):
+            plt.figure()
             plt.scatter(self.__x__, self.__y__, c='black', s=50)
             randno = np.random.random_integers(1, 4)
             if randno == 1:  # Right
@@ -42,10 +43,11 @@ class RandomWalk:
                     pos = pos - [0, 1]
             posX.append(pos[0])
             posY.append(pos[1])
+
             # Draw the paths
-            plt.plot(posX, posY, c='green', linewidth=3)
+            plt.plot(posX, posY, c='red', linewidth=3)
+
             # Pause for animation
             plt.pause(0.5)
-            print(i)
 
         plt.show()
