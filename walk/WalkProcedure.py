@@ -46,7 +46,7 @@ class RandomWalk:
 
             # Draw the paths
             plt.plot(posX, posY, c='red', linewidth=3)
-
+            print(i)
             # Pause for animation
             plt.pause(0.5)
 
