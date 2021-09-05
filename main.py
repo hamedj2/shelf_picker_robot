@@ -4,6 +4,7 @@ from prettytable import PrettyTable
 import pandas as pd
 
 from robotconfigs.Sensors import DetectShelveSensor
+from walk.WalkProcedure import RandomWalk
 
 
 def solution1():
@@ -86,7 +87,11 @@ def solution2():
 if __name__ == '__main__':
     # solution1()
     # solution2()
-    sendor = DetectShelveSensor()
-    sendor.sendor_accuracy = 80
-    sendor.sense()
-    print(sendor.sendor_data)
+
+    # sendor = DetectShelveSensor()
+    # sendor.sendor_accuracy = 80
+    # sendor.sense()
+    # print(sendor.sendor_data)
+
+    walk = RandomWalk()
+    walk.walk_simulate()
