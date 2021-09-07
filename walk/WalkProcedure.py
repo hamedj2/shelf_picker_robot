@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from robotconfigs.Sensors import DetectShelveSensor
+from robotconfigs.Sensors import DetectSensor
 
 
 class RandomWalk:
@@ -22,8 +22,8 @@ class RandomWalk:
         posY.append(pos[1])
         # Simulate the random walk upto nsteps steps
         nsteps = 1000000
-        sendor = DetectShelveSensor()
-        sendor.sendor_accuracy = 80
+        sendor = DetectSensor()
+        sendor.sendor_accuracy = 90
 
         for i in range(nsteps):
             plt.figure()

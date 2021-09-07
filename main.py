@@ -1,9 +1,11 @@
 import numpy as np
-from random import randrange
+from random import randrange, random
+
+import send2trash
 from prettytable import PrettyTable
 import pandas as pd
 
-from robotconfigs.Sensors import DetectShelveSensor
+from robotconfigs.Sensors import DetectSensor
 from walk.WalkProcedure import RandomWalk
 
 
@@ -93,5 +95,22 @@ if __name__ == '__main__':
     # sendor.sense()
     # print(sendor.sendor_data)
 
-    walk = RandomWalk()
-    walk.walk_simulate()
+    # walk = RandomWalk()
+    # walk.walk_simulate()
+
+    # Get Instance From Sensor Class
+    sensor_path = DetectSensor()
+
+    # Config Sensor accuracy
+    sensor_path.sendor_accuracy = 90
+
+    # Send Sense Pulse
+    sensor_path.sense()
+
+    # Show Sensor Return Data
+    print(f'Path Sensor {"Detection is Correct" if sensor_path.sendor_data == True else "Detection is not Correct"}')
+
+    sensor_item = DetectSensor()
+    sensor_item.sendor_accuracy = 90
+    sensor_item.sense()
+    print(f'Path Sensor {"Detection is Correct" if sensor_item.sendor_data == True else "Detection is not Correct"}')
