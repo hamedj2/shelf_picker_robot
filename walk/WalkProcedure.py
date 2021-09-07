@@ -4,32 +4,41 @@ from robotconfigs.Sensors import DetectSensor
 
 
 class RandomWalk:
+    # ClasS Initialize
     def __init__(self):
-        self.__x__ = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6,
-                      6, 6, 6]
-        self.__y__ = [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3,
-                      4, 5, 6]
+        self.__x = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6,
+                    6, 6, 6]
+        self.__y = [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3,
+                    4, 5, 6]
 
     def walk_simulate(self):
-        plt.scatter(self.__x__, self.__y__, c='black', s=50)
-        plt.title('Random walk of Alice')
-        pos = np.array([1, 1])  # Start Walk
+        plt.title('Random walk of Bob')
+        plt.scatter(self.__x, self.__y, c='black', s=50)
+
+        # Start Walk Position
+        pos = np.array([1, 1])
 
         # Arrays/Lists to store some positions to draw them later.
-        posX = []
-        posY = []
-        posX.append(pos[0])
-        posY.append(pos[1])
+        pos_x = []
+        pos_y = []
+        pos_x.append(pos[0])
+        pos_y.append(pos[1])
+
         # Simulate the random walk upto nsteps steps
         nsteps = 1000000
-        sendor = DetectSensor()
-        sendor.sendor_accuracy = 90
+
+        # Sensors Configuration
+        sendor_path = DetectSensor()
+        sendor_path.sendor_accuracy = 90
+
+        sensor_item = DetectSensor()
+        sensor_item.sendor_accuracy = 90
 
         for i in range(nsteps):
-            plt.figure()
-            plt.scatter(self.__x__, self.__y__, c='black', s=50)
+            plt.scatter(self.__x, self.__y, c='black', s=50)
+
             randno = np.random.random_integers(1, 4)
-            if randno == 1:  # Right
+            if randno == 1:  # Move To Right
                 if pos[0] < 6:
                     pos = pos + [1, 0]
             elif randno == 2:  # Up
@@ -41,12 +50,12 @@ class RandomWalk:
             elif randno == 4:  # Down
                 if pos[1] > 1:
                     pos = pos - [0, 1]
-            posX.append(pos[0])
-            posY.append(pos[1])
+            pos_x.append(pos[0])
+            pos_y.append(pos[1])
 
             # Draw the paths
-            plt.plot(posX, posY, c='red', linewidth=3)
-            print(i)
+            plt.plot(pos_x, pos_y, c='red', linewidth=3)
+
             # Pause for animation
             plt.pause(0.5)
 
