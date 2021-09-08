@@ -1,7 +1,7 @@
 import numpy as np
 from random import randrange, random
 
-import send2trash
+#import send2trash
 from prettytable import PrettyTable
 import pandas as pd
 
