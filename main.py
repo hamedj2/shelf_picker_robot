@@ -1,7 +1,7 @@
 import numpy as np
 from random import randrange, random
 
-#import send2trash
+# import send2trash
 from prettytable import PrettyTable
 import pandas as pd
 
@@ -97,4 +97,7 @@ if __name__ == '__main__':
 
     walk = RandomWalk()
     walk.walk_simulate()
-
+    # result = []
+    # for i in range(1, 1000):
+    # result.append(walk.walk_simulate())
+    # print(np.average(result))

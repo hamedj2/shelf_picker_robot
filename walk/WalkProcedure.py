@@ -44,9 +44,6 @@ class RandomWalk:
 
     def walk_simulate(self):
         plt.title('Random walk of Bob')
-        # plt.scatter(self.__x, self.__y, c='black', s=30)
-        # x, y = self.__data.T
-        # plt.scatter(x, y, c='red', s=100)
         plt.matshow(self.__data, cmap='gray')
 
         # Start Walk Position
@@ -70,6 +67,7 @@ class RandomWalk:
 
         total_path = []
         see_item = []
+        score = 0
         while see_item.__len__() < 10:
             plt.matshow(self.__data, cmap='gray')
 
@@ -99,15 +97,18 @@ class RandomWalk:
                     path.append(right_pos)
 
             if path.__len__() == 1:
+                score += 3
                 pos = path[0]
                 if not self.__data[pos[0], pos[1]] in see_item:
                     see_item.append(self.__data[pos[0], pos[1]])
             elif path.__len__() > 1:
+                score += 3
                 random_index = randrange(len(path))
                 pos = path[random_index]
                 if not self.__data[pos[0], pos[1]] in see_item:
                     see_item.append(self.__data[pos[0], pos[1]])
             else:
+                score -= 1
                 randno1 = np.random.random_integers(1, 4)
                 if randno1 == 1:  # Move To Right
                     if pos[0] < 5:
@@ -125,11 +126,11 @@ class RandomWalk:
             total_path.append(pos)
             pos_x.append(pos[0])
             pos_y.append(pos[1])
-            # Draw the paths
             plt.plot(pos_x, pos_y, c='yellow', linewidth=5)
-            # Pause for animation
             plt.pause(1)
             if see_item.__len__() > 0:
                 print(see_item)
 
         plt.show()
+        print(score)
+        return score
