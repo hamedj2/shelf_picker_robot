@@ -61,8 +61,6 @@ class RandomWalk:
         pos_x.append(pos[0])
         pos_y.append(pos[1])
 
-        # Simulate the random walk upto nsteps steps
-        nsteps = 100000
         # Sensors Configuration
         sendor_path = DetectSensor()
         sendor_path.sendor_accuracy = 90
@@ -70,9 +68,9 @@ class RandomWalk:
         sensor_item = DetectSensor()
         sensor_item.sendor_accuracy = 90
 
-        for i in range(nsteps):
-            # plt.scatter(self.__x, self.__y, c='black', edgecolor='white', s=30)
-
+        total_path = []
+        see_item = []
+        while see_item.__len__() < 10:
             plt.matshow(self.__data, cmap='gray')
 
             # Get neighbor cells
@@ -85,22 +83,30 @@ class RandomWalk:
             path = []
             if self.check_valid_position(pos - [0, 1]):
                 up_pos = pos - [0, 1]
-                path.append(up_pos)
+                if not self.__data[up_pos[0], up_pos[1]] in see_item:
+                    path.append(up_pos)
             if self.check_valid_position(pos + [0, 1]):
                 down_pos = pos + [0, 1]
-                path.append(down_pos)
+                if not self.__data[down_pos[0], down_pos[1]] in see_item:
+                    path.append(down_pos)
             if self.check_valid_position(pos - [1, 0]):
                 left_pos = pos - [1, 0]
-                path.append(left_pos)
+                if not self.__data[left_pos[0], left_pos[1]] in see_item:
+                    path.append(left_pos)
             if self.check_valid_position(pos + [1, 0]):
                 right_pos = pos + [1, 0]
-                path.append(right_pos)
+                if not self.__data[right_pos[0], right_pos[1]] in see_item:
+                    path.append(right_pos)
 
             if path.__len__() == 1:
                 pos = path[0]
+                if not self.__data[pos[0], pos[1]] in see_item:
+                    see_item.append(self.__data[pos[0], pos[1]])
             elif path.__len__() > 1:
                 random_index = randrange(len(path))
                 pos = path[random_index]
+                if not self.__data[pos[0], pos[1]] in see_item:
+                    see_item.append(self.__data[pos[0], pos[1]])
             else:
                 randno1 = np.random.random_integers(1, 4)
                 if randno1 == 1:  # Move To Right
@@ -116,12 +122,14 @@ class RandomWalk:
                     if pos[1] < 5:
                         pos = pos + [0, 1]
 
+            total_path.append(pos)
             pos_x.append(pos[0])
             pos_y.append(pos[1])
             # Draw the paths
             plt.plot(pos_x, pos_y, c='yellow', linewidth=5)
             # Pause for animation
-            plt.pause(0.5)
+            plt.pause(1)
+            if see_item.__len__() > 0:
+                print(see_item)
 
         plt.show()
-        print(move_list)
