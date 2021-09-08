@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from robotconfigs.Sensors import DetectSensor
+from random import randrange
 
 
 class RandomWalk:
@@ -27,7 +28,9 @@ class RandomWalk:
         self.__data[2, 5] = 10
 
     def check_valid_position(self, new_pos):
-        if 1 > new_pos[0] > 5 or 1 > new_pos[1] > 5:
+        if new_pos[1] < 0 or new_pos[1] > 5:
+            return False
+        elif new_pos[0] < 0 or new_pos[0] > 5:
             return False
         else:
             if 1 <= self.__data[new_pos[0], new_pos[1]] <= 10:
@@ -47,7 +50,7 @@ class RandomWalk:
         plt.matshow(self.__data, cmap='gray')
 
         # Start Walk Position
-        pos = np.array([1, 1])
+        pos = np.array([0, 0])
 
         # Arrays/Lists to store some positions to draw them later.
         pos_x = []
@@ -73,39 +76,50 @@ class RandomWalk:
             plt.matshow(self.__data, cmap='gray')
 
             # Get neighbor cells
-            top_pos = [-99, -99]
-            bottom_pos = [-99, -99]
+            up_pos = [-99, -99]
+            down_pos = [-99, -99]
             left_pos = [-99, -99]
             right_pos = [-99, -99]
 
             # Get valid neighbor
-            if self.check_valid_position(pos + [0, 1]):
-                top_pos = pos + [0, 1]
+            path = []
             if self.check_valid_position(pos - [0, 1]):
-                bottom_pos = pos - [0, 1]
+                up_pos = pos - [0, 1]
+                path.append(up_pos)
+            if self.check_valid_position(pos + [0, 1]):
+                down_pos = pos + [0, 1]
+                path.append(down_pos)
             if self.check_valid_position(pos - [1, 0]):
                 left_pos = pos - [1, 0]
+                path.append(left_pos)
             if self.check_valid_position(pos + [1, 0]):
                 right_pos = pos + [1, 0]
+                path.append(right_pos)
 
-            randno = np.random.random_integers(1, 4)
-            if randno == 1:  # Move To Right
-                if pos[0] < 5:
-                    pos = pos + [1, 0]
-            elif randno == 2:  # Up
-                if pos[1] < 5:
-                    pos = pos + [0, 1]
-            if randno == 3:  # Left
-                if pos[0] > 0:
-                    pos = pos - [1, 0]
-            elif randno == 4:  # Down
-                if pos[1] > 0:
-                    pos = pos - [0, 1]
+            if path.__len__() == 1:
+                pos = path[0]
+            elif path.__len__() > 1:
+                random_index = randrange(len(path))
+                pos = path[random_index]
+            else:
+                randno1 = np.random.random_integers(1, 4)
+                if randno1 == 1:  # Move To Right
+                    if pos[0] < 5:
+                        pos = pos + [1, 0]
+                elif randno1 == 2:  # Up
+                    if pos[1] > 0:
+                        pos = pos - [0, 1]
+                if randno1 == 3:  # Left
+                    if pos[0] > 0:
+                        pos = pos - [1, 0]
+                elif randno1 == 4:  # Down
+                    if pos[1] < 5:
+                        pos = pos + [0, 1]
 
             pos_x.append(pos[0])
             pos_y.append(pos[1])
             # Draw the paths
-            plt.plot(pos_x, pos_y, c='white', linewidth=5)
+            plt.plot(pos_x, pos_y, c='yellow', linewidth=5)
             # Pause for animation
             plt.pause(0.5)
 
