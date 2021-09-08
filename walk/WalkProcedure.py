@@ -69,7 +69,7 @@ class RandomWalk:
         see_item = []
         score = 0
         while see_item.__len__() < 10:
-            plt.matshow(self.__data, cmap='gray')
+            # plt.matshow(self.__data, cmap='gray')
 
             # Get neighbor cells
             up_pos = [-99, -99]
@@ -126,11 +126,12 @@ class RandomWalk:
             total_path.append(pos)
             pos_x.append(pos[0])
             pos_y.append(pos[1])
-            plt.plot(pos_x, pos_y, c='yellow', linewidth=5)
-            plt.pause(1)
-            if see_item.__len__() > 0:
-                print(see_item)
+            # plt.plot(pos_x, pos_y, c='yellow', linewidth=5)
+            # plt.pause(0.1)
+            # if see_item.__len__() > 0:
+            #     print(see_item)
 
         plt.show()
         print(score)
+        print(total_path)
         return score
