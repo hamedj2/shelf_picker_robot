@@ -16,5 +16,7 @@ if __name__ == '__main__':
         path_trace.append(total_path.__len__())
 
     print(f"Average Score is: {np.average(result)}")
+    print(f"Min Score is: {np.min(result)}")
+    print(f"Max Score is: {np.max(result)}")
     print(f"Min Path is: {min(path_trace)}")
     print(f"Max Path is: {max(path_trace)}")

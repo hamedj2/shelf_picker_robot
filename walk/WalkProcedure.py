@@ -95,19 +95,20 @@ class RandomWalk:
             path = []
             if self.check_valid_position(pos - [0, 1]):
                 up_pos = pos - [0, 1]
-                if self.__data[up_pos[0], up_pos[1]] in orders:
+                sensor_item.sense()
+                if self.__data[up_pos[0], up_pos[1]] in orders and sensor_item.sendor_data is True:
                     path.append(up_pos)
             if self.check_valid_position(pos + [0, 1]):
                 down_pos = pos + [0, 1]
-                if self.__data[down_pos[0], down_pos[1]] in orders:
+                if self.__data[down_pos[0], down_pos[1]] in orders and sensor_item.sendor_data is True:
                     path.append(down_pos)
             if self.check_valid_position(pos - [1, 0]):
                 left_pos = pos - [1, 0]
-                if self.__data[left_pos[0], left_pos[1]] in orders:
+                if self.__data[left_pos[0], left_pos[1]] in orders and sensor_item.sendor_data is True:
                     path.append(left_pos)
             if self.check_valid_position(pos + [1, 0]):
                 right_pos = pos + [1, 0]
-                if self.__data[right_pos[0], right_pos[1]] in orders:
+                if self.__data[right_pos[0], right_pos[1]] in orders and sensor_item.sendor_data is True:
                     path.append(right_pos)
 
             if path.__len__() == 1:
