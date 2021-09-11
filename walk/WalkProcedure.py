@@ -50,9 +50,10 @@ class RandomWalk:
             else:
                 return False
 
-    def walk_simulate(self, start_position, orders):
-        # plt.title('Random walk of Bob')
-        # plt.matshow(self.__data, cmap='gray')
+    def walk_simulate(self, start_position, orders, plot=False):
+        if plot is True:
+            plt.title('Random walk of Bob')
+            plt.matshow(self.__data, cmap='gray')
 
         # Reset Short Memory
         self.__short_memory = np.zeros([6, 6])
@@ -89,7 +90,8 @@ class RandomWalk:
 
         last_see_item = []
         while see_item.__len__() < len(orders):
-            # plt.matshow(self.__data, cmap='gray')
+            if plot is True:
+                plt.matshow(self.__data, cmap='gray')
 
             # Get valid neighbor
             path = []
@@ -158,8 +160,8 @@ class RandomWalk:
                         self.__short_memory[pos[0], pos[1]] = 1
             if pos[0] != 99 and pos[1] != 99:
                 total_path.append(pos)
-            # pos_x.append(pos[0])
-            # pos_y.append(pos[1])
+            pos_x.append(pos[0])
+            pos_y.append(pos[1])
 
             if see_item == last_see_item:
                 self.__loop_count += 1
@@ -168,8 +170,9 @@ class RandomWalk:
                     self.__loop_count = 0
                 else:
                     self.__loop_detected = False
-            # plt.plot(pos_x, pos_y, c='yellow', linewidth=5)
-            # plt.pause(0.1)
+            if plot is True:
+                plt.plot(pos_x, pos_y, c='yellow', linewidth=5)
+                plt.pause(0.1)
             if see_item.__len__() > 0:
                 last_see_item = see_item
                 # print(see_item)
