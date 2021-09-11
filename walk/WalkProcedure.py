@@ -9,6 +9,8 @@ class RandomWalk:
     def __init__(self):
         self.__path_sensor = DetectSensor()
         self.__path_sensor.sendor_accuracy = 90
+        self.__loop_detected = False
+        self.__loop_count = 0
 
         self.__x = [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5,
                     5, 5, 5]
@@ -27,10 +29,16 @@ class RandomWalk:
         self.__data[4, 4] = 9
         self.__data[2, 5] = 10
 
+        self.__short_memory = np.zeros([6, 6])
+
     def check_valid_position(self, new_pos):
         if new_pos[1] < 0 or new_pos[1] > 5:
             return False
         elif new_pos[0] < 0 or new_pos[0] > 5:
+            return False
+        elif self.__loop_detected:
+            return True
+        elif self.__short_memory[new_pos[0], new_pos[1]] != 0:
             return False
         else:
             if 1 <= self.__data[new_pos[0], new_pos[1]] <= 10:
@@ -42,19 +50,21 @@ class RandomWalk:
             else:
                 return False
 
-    def walk_simulate(self):
-        plt.title('Random walk of Bob')
-        plt.matshow(self.__data, cmap='gray')
+    def walk_simulate(self, start_position, orders):
+        # plt.title('Random walk of Bob')
+        # plt.matshow(self.__data, cmap='gray')
+
+        # Reset Short Memory
+        self.__short_memory = np.zeros([6, 6])
 
         # Start Walk Position
-        pos = np.array([0, 0])
+        pos = np.array(start_position)
 
         # Arrays/Lists to store some positions to draw them later.
         pos_x = []
         pos_y = []
 
-        move_list = []
-
+        step = 0
         pos_x.append(pos[0])
         pos_y.append(pos[1])
 
@@ -68,14 +78,18 @@ class RandomWalk:
         total_path = []
         see_item = []
         score = 0
-        while see_item.__len__() < 10:
-            # plt.matshow(self.__data, cmap='gray')
 
-            # Get neighbor cells
-            up_pos = [-99, -99]
-            down_pos = [-99, -99]
-            left_pos = [-99, -99]
-            right_pos = [-99, -99]
+        self.__loop_count = 0
+        self.__loop_detected = False
+
+        up_pos = [-99, -99]
+        down_pos = [-99, -99]
+        left_pos = [-99, -99]
+        right_pos = [-99, -99]
+
+        last_see_item = []
+        while see_item.__len__() < len(orders):
+            # plt.matshow(self.__data, cmap='gray')
 
             # Get valid neighbor
             path = []
@@ -99,15 +113,16 @@ class RandomWalk:
             if path.__len__() == 1:
                 score += 3
                 pos = path[0]
-                if not self.__data[pos[0], pos[1]] in see_item:
+                if self.__data[pos[0], pos[1]] in orders:
                     see_item.append(self.__data[pos[0], pos[1]])
+
             elif path.__len__() > 1:
                 score += 3
                 random_index = randrange(len(path))
                 pos = path[random_index]
-                if not self.__data[pos[0], pos[1]] in see_item:
+                if self.__data[pos[0], pos[1]] in orders:
                     see_item.append(self.__data[pos[0], pos[1]])
-            else:
+            elif self.__short_memory[pos[0], pos[1]] == 1:
                 score -= 1
                 randno1 = np.random.random_integers(1, 4)
                 if randno1 == 1:  # Move To Right
@@ -124,14 +139,22 @@ class RandomWalk:
                         pos = pos + [0, 1]
 
             total_path.append(pos)
-            pos_x.append(pos[0])
-            pos_y.append(pos[1])
+            # pos_x.append(pos[0])
+            # pos_y.append(pos[1])
+            self.__short_memory[pos[0], pos[1]] = 1
+
+            if see_item == last_see_item:
+                self.__loop_count += 1
+                if self.__loop_count > 5:
+                    self.__loop_detected = True
+                    self.__loop_count = 0
+                else:
+                    self.__loop_detected = False
             # plt.plot(pos_x, pos_y, c='yellow', linewidth=5)
             # plt.pause(0.1)
-            # if see_item.__len__() > 0:
-            #     print(see_item)
+            if see_item.__len__() > 0:
+                last_see_item = see_item
+                # print(see_item)
 
-        plt.show()
-        print(score)
-        print(total_path)
-        return score
+            # plt.show()
+        return score, pos, total_path
