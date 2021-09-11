@@ -158,11 +158,13 @@ class RandomWalk:
 
             if see_item == last_see_item:
                 self.__loop_count += 1
-                if self.__loop_count > 40:
+                if self.__loop_count > 50:
                     self.__loop_detected = True
                     self.__loop_count = 0
                 else:
                     self.__loop_detected = False
+            else:
+                self.__loop_detected = False
             # plt.plot(pos_x, pos_y, c='yellow', linewidth=5)
             # plt.pause(0.1)
             if see_item.__len__() > 0:
