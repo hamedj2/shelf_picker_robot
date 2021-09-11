@@ -95,32 +95,31 @@ class RandomWalk:
             path = []
             if self.check_valid_position(pos - [0, 1]):
                 up_pos = pos - [0, 1]
-                if not self.__data[up_pos[0], up_pos[1]] in see_item:
+                if self.__data[up_pos[0], up_pos[1]] in orders:
                     path.append(up_pos)
             if self.check_valid_position(pos + [0, 1]):
                 down_pos = pos + [0, 1]
-                if not self.__data[down_pos[0], down_pos[1]] in see_item:
+                if self.__data[down_pos[0], down_pos[1]] in orders:
                     path.append(down_pos)
             if self.check_valid_position(pos - [1, 0]):
                 left_pos = pos - [1, 0]
-                if not self.__data[left_pos[0], left_pos[1]] in see_item:
+                if self.__data[left_pos[0], left_pos[1]] in orders:
                     path.append(left_pos)
             if self.check_valid_position(pos + [1, 0]):
                 right_pos = pos + [1, 0]
-                if not self.__data[right_pos[0], right_pos[1]] in see_item:
+                if self.__data[right_pos[0], right_pos[1]] in orders:
                     path.append(right_pos)
 
             if path.__len__() == 1:
                 score += 3
                 pos = path[0]
-                if self.__data[pos[0], pos[1]] in orders:
+                if not self.__data[pos[0], pos[1]] in see_item:
                     see_item.append(self.__data[pos[0], pos[1]])
-
             elif path.__len__() > 1:
                 score += 3
                 random_index = randrange(len(path))
                 pos = path[random_index]
-                if self.__data[pos[0], pos[1]] in orders:
+                if not self.__data[pos[0], pos[1]] in see_item:
                     see_item.append(self.__data[pos[0], pos[1]])
             elif self.__short_memory[pos[0], pos[1]] == 1:
                 score -= 1
