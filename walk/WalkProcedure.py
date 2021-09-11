@@ -122,22 +122,24 @@ class RandomWalk:
                 pos = path[random_index]
                 if not self.__data[pos[0], pos[1]] in see_item:
                     see_item.append(self.__data[pos[0], pos[1]])
-            elif self.__short_memory[pos[0], pos[1]] == 1:
-                score -= 1
+            else:
                 randno1 = np.random.random_integers(1, 4)
                 if randno1 == 1:  # Move To Right
                     if pos[0] < 5:
+                        score -= 1
                         pos = pos + [1, 0]
                 elif randno1 == 2:  # Up
                     if pos[1] > 0:
+                        score -= 1
                         pos = pos - [0, 1]
                 if randno1 == 3:  # Left
                     if pos[0] > 0:
+                        score -= 1
                         pos = pos - [1, 0]
                 elif randno1 == 4:  # Down
                     if pos[1] < 5:
+                        score -= 1
                         pos = pos + [0, 1]
-
             total_path.append(pos)
             # pos_x.append(pos[0])
             # pos_y.append(pos[1])
