@@ -95,23 +95,15 @@ class RandomWalk:
             path = []
             if self.check_valid_position(pos - [0, 1], orders):
                 up_pos = pos - [0, 1]
-                if not self.__data[pos[0], pos[1]] in see_item:
-                    score += 3
                 path.append(up_pos)
             if self.check_valid_position(pos + [0, 1], orders):
                 down_pos = pos + [0, 1]
-                if not self.__data[pos[0], pos[1]] in see_item:
-                    score += 3
                 path.append(down_pos)
             if self.check_valid_position(pos - [1, 0], orders):
                 left_pos = pos - [1, 0]
-                if not self.__data[pos[0], pos[1]] in see_item:
-                    score += 3
                 path.append(left_pos)
             if self.check_valid_position(pos + [1, 0], orders):
                 right_pos = pos + [1, 0]
-                if not self.__data[pos[0], pos[1]] in see_item:
-                    score += 3
                 path.append(right_pos)
             else:
                 score -= 1
@@ -119,11 +111,13 @@ class RandomWalk:
             if path.__len__() == 1:
                 pos = path[0]
                 if not self.__data[pos[0], pos[1]] in see_item:
+                    score += 3
                     see_item.append(self.__data[pos[0], pos[1]])
             elif path.__len__() > 1:
                 random_index = randrange(len(path))
                 pos = path[random_index]
                 if not self.__data[pos[0], pos[1]] in see_item:
+                    score += 3
                     see_item.append(self.__data[pos[0], pos[1]])
             else:
                 randno1 = np.random.random_integers(1, 4)
@@ -147,7 +141,7 @@ class RandomWalk:
 
             if see_item == last_see_item:
                 self.__loop_count += 1
-                if self.__loop_count > 5:
+                if self.__loop_count > 2:
                     self.__loop_detected = True
                     self.__loop_count = 0
                 else:
