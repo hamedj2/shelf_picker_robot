@@ -15,6 +15,9 @@ if __name__ == '__main__':
         result.append(score)
         path_trace.append(total_path.__len__())
 
+        # print(f"Average Score is: {score}")
+        # print(f"Order Count is: {orders.__len__()}")
+
     print(f"Average Score is: {np.average(result)}")
     print(f"Min Score is: {np.min(result)}")
     print(f"Max Score is: {np.max(result)}")

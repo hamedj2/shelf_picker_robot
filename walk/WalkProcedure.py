@@ -97,27 +97,37 @@ class RandomWalk:
                 up_pos = pos - [0, 1]
                 sensor_item.sense()
                 if self.__data[up_pos[0], up_pos[1]] in orders and sensor_item.sendor_data is True:
+                    score += 3
                     path.append(up_pos)
+                else:
+                    score -= 1
             if self.check_valid_position(pos + [0, 1]):
                 down_pos = pos + [0, 1]
                 if self.__data[down_pos[0], down_pos[1]] in orders and sensor_item.sendor_data is True:
+                    score += 3
                     path.append(down_pos)
+                else:
+                    score -= 1
             if self.check_valid_position(pos - [1, 0]):
                 left_pos = pos - [1, 0]
                 if self.__data[left_pos[0], left_pos[1]] in orders and sensor_item.sendor_data is True:
+                    score += 3
                     path.append(left_pos)
+                else:
+                    score -= 1
             if self.check_valid_position(pos + [1, 0]):
                 right_pos = pos + [1, 0]
                 if self.__data[right_pos[0], right_pos[1]] in orders and sensor_item.sendor_data is True:
+                    score += 3
                     path.append(right_pos)
+                else:
+                    score -= 1
 
             if path.__len__() == 1:
-                score += 3
                 pos = path[0]
                 if not self.__data[pos[0], pos[1]] in see_item:
                     see_item.append(self.__data[pos[0], pos[1]])
             elif path.__len__() > 1:
-                score += 3
                 random_index = randrange(len(path))
                 pos = path[random_index]
                 if not self.__data[pos[0], pos[1]] in see_item:
@@ -126,21 +136,18 @@ class RandomWalk:
                 randno1 = np.random.random_integers(1, 4)
                 if randno1 == 1:  # Move To Right
                     if pos[0] < 5:
-                        score -= 1
                         pos = pos + [1, 0]
                 elif randno1 == 2:  # Up
                     if pos[1] > 0:
-                        score -= 1
                         pos = pos - [0, 1]
                 if randno1 == 3:  # Left
                     if pos[0] > 0:
-                        score -= 1
                         pos = pos - [1, 0]
                 elif randno1 == 4:  # Down
                     if pos[1] < 5:
-                        score -= 1
                         pos = pos + [0, 1]
-            total_path.append(pos)
+            if pos[0] != 99 and pos[1] != 99:
+                total_path.append(pos)
             # pos_x.append(pos[0])
             # pos_y.append(pos[1])
             self.__short_memory[pos[0], pos[1]] = 1
