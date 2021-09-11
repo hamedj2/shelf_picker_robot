@@ -11,7 +11,7 @@ if __name__ == '__main__':
     for i in range(1, 1000):
         order_count = randint(1, 10)
         orders = list(np.random.permutation(np.arange(1, 10))[:order_count])
-        score, start_position, total_path = walk.walk_simulate(start_position, orders)
+        score, start_position, total_path = walk.walk_simulate(start_position, orders, False)
         result.append(score)
         path_trace.append(total_path.__len__())
 
