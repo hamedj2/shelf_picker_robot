@@ -38,7 +38,7 @@ class RandomWalk:
             return False
         elif self.__loop_detected:
             return True
-        elif self.__short_memory[new_pos[0], new_pos[1]] != 0:
+        elif self.__short_memory[new_pos[0], new_pos[1]] == 1:
             return False
         else:
             if 1 <= self.__data[new_pos[0], new_pos[1]] <= 10:
