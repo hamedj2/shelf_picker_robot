@@ -107,8 +107,6 @@ class RandomWalk:
             if self.check_valid_position(pos + [1, 0], orders):
                 right_pos = pos + [1, 0]
                 path.append(right_pos)
-            else:
-                score -= 1
 
             if path.__len__() == 1:
                 pos = path[0]
@@ -123,6 +121,7 @@ class RandomWalk:
                     see_item.append(self.__data[pos[0], pos[1]])
             else:
                 randno1 = np.random.random_integers(1, 4)
+                score -= 1
                 if randno1 == 1:  # Move To Right
                     if pos[0] < 5:
                         pos = pos + [1, 0]
