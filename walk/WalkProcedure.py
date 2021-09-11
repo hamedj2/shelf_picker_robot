@@ -125,11 +125,13 @@ class RandomWalk:
 
             if path.__len__() == 1:
                 pos = path[0]
+                self.__short_memory[pos[0], pos[1]] = 1
                 if not self.__data[pos[0], pos[1]] in see_item:
                     see_item.append(self.__data[pos[0], pos[1]])
             elif path.__len__() > 1:
                 random_index = randrange(len(path))
                 pos = path[random_index]
+                self.__short_memory[pos[0], pos[1]] = 1
                 if not self.__data[pos[0], pos[1]] in see_item:
                     see_item.append(self.__data[pos[0], pos[1]])
             else:
@@ -137,20 +139,23 @@ class RandomWalk:
                 if randno1 == 1:  # Move To Right
                     if pos[0] < 5:
                         pos = pos + [1, 0]
+                        self.__short_memory[pos[0], pos[1]] = 1
                 elif randno1 == 2:  # Up
                     if pos[1] > 0:
                         pos = pos - [0, 1]
+                        self.__short_memory[pos[0], pos[1]] = 1
                 if randno1 == 3:  # Left
                     if pos[0] > 0:
                         pos = pos - [1, 0]
+                        self.__short_memory[pos[0], pos[1]] = 1
                 elif randno1 == 4:  # Down
                     if pos[1] < 5:
                         pos = pos + [0, 1]
+                        self.__short_memory[pos[0], pos[1]] = 1
             if pos[0] != 99 and pos[1] != 99:
                 total_path.append(pos)
             # pos_x.append(pos[0])
             # pos_y.append(pos[1])
-            self.__short_memory[pos[0], pos[1]] = 1
 
             if see_item == last_see_item:
                 self.__loop_count += 1
