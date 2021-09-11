@@ -31,7 +31,7 @@ class RandomWalk:
 
         self.__short_memory = np.zeros([6, 6])
 
-    def check_valid_position(self, new_pos):
+    def check_valid_position(self, new_pos, orders):
         if new_pos[1] < 0 or new_pos[1] > 5:
             return False
         elif new_pos[0] < 0 or new_pos[0] > 5:
@@ -41,7 +41,7 @@ class RandomWalk:
         elif self.__short_memory[new_pos[0], new_pos[1]] == 1:
             return False
         else:
-            if 1 <= self.__data[new_pos[0], new_pos[1]] <= 10:
+            if self.__data[new_pos[0], new_pos[1]] in orders:
                 self.__path_sensor.sense()
                 if self.__path_sensor.sendor_data is True:
                     return True
@@ -93,39 +93,28 @@ class RandomWalk:
 
             # Get valid neighbor
             path = []
-            if self.check_valid_position(pos - [0, 1]):
+            if self.check_valid_position(pos - [0, 1], orders):
                 up_pos = pos - [0, 1]
-                sensor_item.sense()
-                if self.__data[up_pos[0], up_pos[1]] in orders and sensor_item.sendor_data is True \
-                        and not self.__data[up_pos[0], up_pos[1]] in see_item:
+                if not self.__data[pos[0], pos[1]] in see_item:
                     score += 3
-                    path.append(up_pos)
-                else:
-                    score -= 1
-            if self.check_valid_position(pos + [0, 1]):
+                path.append(up_pos)
+            if self.check_valid_position(pos + [0, 1], orders):
                 down_pos = pos + [0, 1]
-                if self.__data[down_pos[0], down_pos[1]] in orders and sensor_item.sendor_data is True \
-                        and not self.__data[down_pos[0], down_pos[1]] in see_item:
+                if not self.__data[pos[0], pos[1]] in see_item:
                     score += 3
-                    path.append(down_pos)
-                else:
-                    score -= 1
-            if self.check_valid_position(pos - [1, 0]):
+                path.append(down_pos)
+            if self.check_valid_position(pos - [1, 0], orders):
                 left_pos = pos - [1, 0]
-                if self.__data[left_pos[0], left_pos[1]] in orders and sensor_item.sendor_data is True \
-                        and not self.__data[left_pos[0], left_pos[1]] in see_item:
+                if not self.__data[pos[0], pos[1]] in see_item:
                     score += 3
-                    path.append(left_pos)
-                else:
-                    score -= 1
-            if self.check_valid_position(pos + [1, 0]):
+                path.append(left_pos)
+            if self.check_valid_position(pos + [1, 0], orders):
                 right_pos = pos + [1, 0]
-                if self.__data[right_pos[0], right_pos[1]] in orders and sensor_item.sendor_data is True and \
-                        not self.__data[right_pos[0], right_pos[1]] in see_item:
+                if not self.__data[pos[0], pos[1]] in see_item:
                     score += 3
-                    path.append(right_pos)
-                else:
-                    score -= 1
+                path.append(right_pos)
+            else:
+                score -= 1
 
             if path.__len__() == 1:
                 pos = path[0]
@@ -158,13 +147,11 @@ class RandomWalk:
 
             if see_item == last_see_item:
                 self.__loop_count += 1
-                if self.__loop_count > 50:
+                if self.__loop_count > 5:
                     self.__loop_detected = True
                     self.__loop_count = 0
                 else:
                     self.__loop_detected = False
-            else:
-                self.__loop_detected = False
             # plt.plot(pos_x, pos_y, c='yellow', linewidth=5)
             # plt.pause(0.1)
             if see_item.__len__() > 0:
