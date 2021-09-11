@@ -144,7 +144,7 @@ class RandomWalk:
 
             if see_item == last_see_item:
                 self.__loop_count += 1
-                if self.__loop_count > 2:
+                if self.__loop_count > 6:
                     self.__loop_detected = True
                     self.__loop_count = 0
                 else:
