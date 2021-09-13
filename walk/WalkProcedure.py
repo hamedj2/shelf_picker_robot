@@ -6,7 +6,8 @@ from random import randrange
 
 class RandomWalk:
     # ClasS Initialize
-    def __init__(self):
+    def __init__(self, layout):
+        self.__cmap = 'plasma'
         self.__path_sensor = DetectSensor()
         self.__path_sensor.sendor_accuracy = 90
         self.__loop_detected = False
@@ -17,17 +18,45 @@ class RandomWalk:
         self.__y = [0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2,
                     3, 4, 5]
 
-        self.__data = np.zeros([6, 6])
-        self.__data[3, 0] = 1
-        self.__data[2, 1] = 2
-        self.__data[5, 1] = 3
-        self.__data[1, 2] = 4
-        self.__data[0, 3] = 5
-        self.__data[2, 3] = 6
-        self.__data[4, 3] = 7
-        self.__data[1, 4] = 8
-        self.__data[4, 4] = 9
-        self.__data[2, 5] = 10
+        if layout == 1:
+            self.__data = np.zeros([6, 6])
+            self.__data[3, 0] = 1
+            self.__data[2, 1] = 2
+            self.__data[5, 1] = 3
+            self.__data[1, 2] = 4
+            self.__data[0, 3] = 5
+            self.__data[2, 3] = 6
+            self.__data[4, 3] = 7
+            self.__data[1, 4] = 8
+            self.__data[4, 4] = 9
+            self.__data[2, 5] = 10
+        elif layout == 2:
+            self.__data = np.zeros([6, 6])
+            self.__data[0, 2] = 1
+            self.__data[0, 4] = 2
+
+            self.__data[1, 0] = 3
+            self.__data[1, 2] = 4
+            self.__data[1, 4] = 5
+
+            self.__data[2, 0] = 6
+            self.__data[2, 2] = 7
+            self.__data[2, 4] = 8
+
+            self.__data[3, 0] = 9
+            self.__data[3, 2] = 10
+            self.__data[3, 5] = 11
+
+            self.__data[4, 0] = 12
+            self.__data[4, 2] = 13
+            self.__data[4, 5] = 14
+
+            self.__data[5, 0] = 15
+            self.__data[5, 4] = 16
+        elif layout == 3:
+            self.__data = np.zeros([6, 6])
+            self.__data[5, 4] = 2
+            self.__data[3, 4] = 1
 
         self.__short_memory = np.zeros([6, 6])
 
@@ -53,7 +82,7 @@ class RandomWalk:
     def walk_simulate(self, start_position, orders, plot=False):
         if plot is True:
             plt.title('Random walk of Bob')
-            plt.matshow(self.__data, cmap='gray')
+            plt.matshow(self.__data, cmap=self.__cmap)
 
         # Reset Short Memory
         self.__short_memory = np.zeros([6, 6])
@@ -91,7 +120,7 @@ class RandomWalk:
         last_see_item = []
         while see_item.__len__() < len(orders):
             if plot is True:
-                plt.matshow(self.__data, cmap='gray')
+                plt.matshow(self.__data, cmap=self.__cmap)
 
             # Get valid neighbor
             path = []
@@ -152,7 +181,7 @@ class RandomWalk:
 
             if plot is True:
                 plt.plot(pos_x, pos_y, c='yellow', linewidth=5)
-                plt.pause(0.1)
+                plt.pause(0.5)
             if see_item.__len__() > 0:
                 last_see_item = see_item
 

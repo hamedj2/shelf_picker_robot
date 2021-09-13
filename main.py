@@ -3,15 +3,20 @@ from random import randrange, randint
 from walk.WalkProcedure import RandomWalk
 
 if __name__ == '__main__':
-    walk = RandomWalk()
+    walk = RandomWalk(2)
+    __product_count = 16
     start_position = [0, 0]
     result = []
-    orders_list = range(1, 10)
+    orders_list = range(1, __product_count)
     path_trace = []
 
+    # order_count = randint(1, __product_count)
+    # orders = list(np.random.permutation(np.arange(1, __product_count))[:order_count])
+    # score, start_position, total_path = walk.walk_simulate(start_position, orders, True)
+
     for i in range(1, 1000):
-        order_count = randint(1, 10)
-        orders = list(np.random.permutation(np.arange(1, 10))[:order_count])
+        order_count = randint(1, __product_count)
+        orders = list(np.random.permutation(np.arange(1, __product_count))[:order_count])
         score, start_position, total_path = walk.walk_simulate(start_position, orders, False)
         result.append(score)
         path_trace.append(total_path)
