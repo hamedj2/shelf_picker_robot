@@ -142,12 +142,16 @@ class RandomWalk:
                 if not self.__data[pos[0], pos[1]] in see_item:
                     score += 3
                     see_item.append(self.__data[pos[0], pos[1]])
+                else:
+                    score -= 1
             elif path.__len__() > 1:
                 random_index = randrange(len(path))
                 pos = path[random_index]
                 if not self.__data[pos[0], pos[1]] in see_item:
                     score += 3
                     see_item.append(self.__data[pos[0], pos[1]])
+                else:
+                    score -= 1
             else:
                 randno1 = np.random.random_integers(1, 4)
                 score -= 1
