@@ -18,8 +18,9 @@ if __name__ == '__main__':
 
     print(f"Average Score is: {np.average(result)}")
     print(f"Min Score is: {np.min(result)}")
-    print(f"Max Score is: {np.max(result)}")
     print(f"Min Path Length is: {min(map(len, path_trace))}")
     print(f"Min Path is: {path_trace[path_trace.index(min(path_trace, key=len))]}")
+
+    print(f"Max Score is: {np.max(result)}")
     print(f"Max Path Length is: {max(map(len, path_trace))}")
     print(f"Max Path is: {path_trace[path_trace.index(max(path_trace, key=len))]}")
