@@ -8,7 +8,6 @@ def layout1():
     __product_count = 10
     start_position = [0, 0]
     result = []
-    orders_list = range(1, __product_count)
     path_trace = []
 
     # order_count = randint(1, __product_count)
