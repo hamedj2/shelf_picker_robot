@@ -5,7 +5,7 @@ from random import randrange
 
 
 class RandomWalk:
-    # ClasS Initialize
+    # Class Initialize
     def __init__(self, layout):
         self.__cmap = 'plasma'
         self.__path_sensor = DetectSensor()
