@@ -10,6 +10,10 @@ class RandomWalk:
         self.__cmap = 'plasma'
         self.__path_sensor = DetectSensor()
         self.__path_sensor.sendor_accuracy = 90
+
+        self.__sensor_item = DetectSensor()
+        self.__sensor_item.sendor_accuracy = 90
+
         self.__loop_detected = False
         self.__loop_count = 0
 
@@ -70,9 +74,10 @@ class RandomWalk:
         elif self.__short_memory[new_pos[0], new_pos[1]] == 1:
             return False
         else:
-            if self.__data[new_pos[0], new_pos[1]] in orders:
-                self.__path_sensor.sense()
-                if self.__path_sensor.sendor_data is True:
+            self.__path_sensor.sense()
+            if self.__path_sensor.sendor_data is True:
+                self.__sensor_item.sense()
+                if self.__data[new_pos[0], new_pos[1]] in orders and self.__sensor_item.sendor_data is True:
                     return True
                 else:
                     return False
@@ -99,11 +104,6 @@ class RandomWalk:
         pos_y.append(pos[1])
 
         # Sensors Configuration
-        sendor_path = DetectSensor()
-        sendor_path.sendor_accuracy = 90
-
-        sensor_item = DetectSensor()
-        sensor_item.sendor_accuracy = 90
 
         total_path = []
         see_item = []
@@ -124,16 +124,16 @@ class RandomWalk:
 
             # Get valid neighbor
             path = []
-            if self.check_valid_position(pos - [0, 1], orders):
+            if self.check_valid_position(pos - [0, 1], orders) is True:
                 up_pos = pos - [0, 1]
                 path.append(up_pos)
-            if self.check_valid_position(pos + [0, 1], orders):
+            if self.check_valid_position(pos + [0, 1], orders) is True:
                 down_pos = pos + [0, 1]
                 path.append(down_pos)
-            if self.check_valid_position(pos - [1, 0], orders):
+            if self.check_valid_position(pos - [1, 0], orders) is True:
                 left_pos = pos - [1, 0]
                 path.append(left_pos)
-            if self.check_valid_position(pos + [1, 0], orders):
+            if self.check_valid_position(pos + [1, 0], orders) is True:
                 right_pos = pos + [1, 0]
                 path.append(right_pos)
 
