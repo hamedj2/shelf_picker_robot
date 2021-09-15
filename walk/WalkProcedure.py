@@ -137,6 +137,7 @@ class RandomWalk:
                 right_pos = pos + [1, 0]
                 path.append(right_pos)
 
+            # Move Agent
             if path.__len__() == 1:
                 pos = path[0]
                 if not self.__data[pos[0], pos[1]] in see_item:
