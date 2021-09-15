@@ -76,17 +76,17 @@ class RandomWalk:
         else:
             self.__path_sensor.sense()
             if self.__path_sensor.sendor_data is True:
+                # Not Empty
                 self.__sensor_item.sense()
                 if self.__data[new_pos[0], new_pos[1]] in orders and self.__sensor_item.sendor_data is True:
+                    # Matched Order
                     return True
                 else:
+                    # Not Matched Order
                     return False
             else:
-                self.__sensor_item.sense()
-                if self.__data[new_pos[0], new_pos[1]] in orders and self.__sensor_item.sendor_data is True:
-                    return True
-                else:
-                    return False
+                # Empty Sapce
+                return False
 
     def walk_simulate(self, start_position, orders, plot=False):
         if plot is True:
