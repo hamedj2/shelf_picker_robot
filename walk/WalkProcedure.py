@@ -123,6 +123,7 @@ class RandomWalk:
 
         last_see_item = []
         while see_item.__len__() < len(orders):
+            plt.clf()
             if plot is True:
                 plt.matshow(self.__data, cmap=self.__cmap)
 
@@ -194,7 +195,7 @@ class RandomWalk:
             if see_item.__len__() > 0:
                 last_see_item = see_item
 
-            if plot is True:
-                plt.show()
-                plt.close()
+            # if plot is True:
+            #     plt.show()
+
         return score, pos, total_path
