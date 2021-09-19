@@ -9,9 +9,10 @@ def layout1():
     start_position = [0, 0]
     result = []
     path_trace = []
-
+    
     # order_count = randint(1, __product_count)
     # orders = list(np.random.permutation(np.arange(1, __product_count))[:order_count])
+    # print(orders)
     # score, start_position, total_path = walk.walk_simulate(start_position, orders, True)
 
     for i in range(1, 1000):
@@ -41,6 +42,7 @@ def layout2():
 
     # order_count = randint(1, __product_count)
     # orders = list(np.random.permutation(np.arange(1, __product_count))[:order_count])
+    # print(orders)
     # score, start_position, total_path = walk.walk_simulate(start_position, orders, True)
 
     for i in range(1, 1000):

@@ -24,16 +24,16 @@ class RandomWalk:
 
         if layout == 1:
             self.__data = np.zeros([6, 6])
-            self.__data[3, 0] = 1
-            self.__data[2, 1] = 2
-            self.__data[5, 1] = 3
-            self.__data[1, 2] = 4
-            self.__data[0, 3] = 5
-            self.__data[2, 3] = 6
-            self.__data[4, 3] = 7
-            self.__data[1, 4] = 8
-            self.__data[4, 4] = 9
-            self.__data[2, 5] = 10
+            self.__data[1, 1] = 1 #A
+            self.__data[2, 2] = 2 #B
+            self.__data[3, 1] = 3 #C
+            self.__data[0, 2] = 4 #D
+            self.__data[2, 0] = 5 #E
+            self.__data[4, 2] = 6 #F
+            self.__data[1, 4] = 7 #G
+            self.__data[4, 5] = 8 #H
+            self.__data[2, 4] = 9 #I
+            self.__data[5, 3] = 10 #J
         elif layout == 2:
             self.__data = np.zeros([6, 6])
             self.__data[0, 2] = 1
@@ -90,7 +90,7 @@ class RandomWalk:
 
     def walk_simulate(self, start_position, orders, plot=False):
         if plot is True:
-            plt.title('Random walk of Bob')
+            # plt.title('Random walk of Bob')
             plt.matshow(self.__data, cmap=self.__cmap)
 
         # Reset Short Memory
@@ -196,4 +196,5 @@ class RandomWalk:
 
             if plot is True:
                 plt.show()
+                plt.close()
         return score, pos, total_path
