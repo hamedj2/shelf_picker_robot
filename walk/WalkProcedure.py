@@ -8,8 +8,8 @@ class RandomWalk:
     # Class Initialize
     def __init__(self, layout):
         self.__cmap = 'plasma'
-        self.__shelve_detec_sensor = DetectSensor()
-        self.__shelve_detec_sensor.sendor_accuracy = 90
+        self.__Path_sensor = DetectSensor()
+        self.__Path_sensor.sendor_accuracy = 90
 
         self.__sensor_item = DetectSensor()
         self.__sensor_item.sendor_accuracy = 90
@@ -74,8 +74,8 @@ class RandomWalk:
         elif self.__short_memory[new_pos[0], new_pos[1]] == 1:
             return False
         else:
-            self.__shelve_detec_sensor.sense()
-            if self.__shelve_detec_sensor.sendor_data is True:
+            self.__Path_sensor.sense()
+            if self.__Path_sensor.sendor_data is True:
                 # Is Shelve
                 self.__sensor_item.sense()
                 if self.__data[new_pos[0], new_pos[1]] in orders and self.__sensor_item.sendor_data is True:
