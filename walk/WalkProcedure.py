@@ -196,6 +196,6 @@ class RandomWalk:
                 last_see_item = see_item
 
             # if plot is True:
-            #     plt.show()
+            #     plt.show() #
 
         return score, pos, total_path
